@@ -3,7 +3,6 @@ package org.intecbrussel.model;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
-import javax.xml.stream.events.Comment;
 import java.util.HashSet;
 import java.util.Set;
 

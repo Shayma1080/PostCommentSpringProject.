@@ -1,5 +1,6 @@
 package org.intecbrussel.service;
 
+import org.hibernate.annotations.Comments;
 import org.intecbrussel.model.Comment;
 import org.intecbrussel.model.Post;
 import org.intecbrussel.repository.CommentRepository;
@@ -9,19 +10,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PostService {
     @Autowired
     private PostRepository postRepository;
 
-    public void addPost(Post post){
-        postRepository.save(post);
+    @Autowired
+    private CommentRepository commentRepository;
+
+    public Post addPost(Post post){
+        return postRepository.save(post);
     }
-    public List<Post> findAll(){
+    public List<Post> getAllPosts(){
         return postRepository.findAll();
     }
-    public Post findById(Long id){
+    public Post findPostById(Long id){
         return postRepository.findById(id).get();
     }
     public Post updatePost(Long id, Post post){
@@ -41,7 +46,7 @@ public class PostService {
     }
 
     public List<Comment> findAllByPostId(Long id){
-
+        return commentRepository.findAllByPostId(id);
     }
 
 }
