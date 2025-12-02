@@ -4,7 +4,6 @@ import org.intecbrussel.model.Comment;
 import org.intecbrussel.model.Post;
 import org.intecbrussel.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +15,17 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @PostMapping("post")
+    @GetMapping
+    public List<Post> findAllPosts(){
+        return postService.getAllPosts();
+    }
+
+    @GetMapping("{id}/comments")
+    public List<Comment> getAllComments(@PathVariable Long id){
+        return postService.findAllByPostId(id);
+    }
+
+    @PostMapping
     public Post createPost(@RequestBody Post post){
         return postService.addPost(post);
     }
@@ -26,15 +35,6 @@ public class PostController {
         return postService.findPostById(postId);
     }
 
-    @GetMapping
-    public List<Post> findAllPosts(){
-        return postService.getAllPosts();
-    }
-
-    @GetMapping("{postId}/comments")
-    public List<Comment> findAllComments(@PathVariable Long postId){
-        return postService.findAllByPostId(postId);
-    }
 
     @PutMapping("{postId}")
     public Post updatePost(@PathVariable Long postId, @RequestBody Post post){
@@ -45,4 +45,5 @@ public class PostController {
     public void deletePost(@PathVariable Long postId){
         postService.deletePost(postId);
     }
+
 }

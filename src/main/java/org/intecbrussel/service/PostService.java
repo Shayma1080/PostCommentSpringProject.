@@ -1,6 +1,7 @@
 package org.intecbrussel.service;
 
 import org.hibernate.annotations.Comments;
+import org.intecbrussel.exception.ResourceNotFoundException;
 import org.intecbrussel.model.Comment;
 import org.intecbrussel.model.Post;
 import org.intecbrussel.repository.CommentRepository;
@@ -27,10 +28,11 @@ public class PostService {
         return postRepository.findAll();
     }
     public Post findPostById(Long id){
-        return postRepository.findById(id).get();
+        return postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
     }
     public Post updatePost(Long id, Post post){
-        Optional<Post> newPost = postRepository.findById(post.getId());
+        Optional<Post> newPost = postRepository.findById(id);
         if(newPost.isPresent()){
             Post existingPost = newPost.get();
             existingPost.setTitle(post.getTitle());
@@ -38,7 +40,7 @@ public class PostService {
             existingPost.setDescription(post.getDescription());
             return postRepository.save(existingPost);
         }else{
-            return null;
+            throw new RuntimeException("post not found with id " + id);
         }
     }
     public void deletePost(Long id){
@@ -46,7 +48,9 @@ public class PostService {
     }
 
     public List<Comment> findAllByPostId(Long id){
-        return commentRepository.findAllByPostId(id);
+        Post post = postRepository.findById(id).orElseThrow(()-> new RuntimeException("post not found"));
+        return List.copyOf(post.getComments()); // converteer SET naar LIST
+
     }
 
 }

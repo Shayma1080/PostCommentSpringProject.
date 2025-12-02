@@ -1,5 +1,6 @@
 package org.intecbrussel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
@@ -9,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "posts")
-public class Post  extends AuditModel{
+public class Post extends AuditModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +24,7 @@ public class Post  extends AuditModel{
     @NotNull
     @Lob
     private String content;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
     private Set<Comment> comments = new HashSet<>();
 
