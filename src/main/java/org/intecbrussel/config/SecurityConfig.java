@@ -14,7 +14,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 // CSRF = Cross-Site Request Forgery
-                .csrf(csrf -> csrf.disable()) // CSRF uitschakelen (optioneel voor API's
+                .csrf(csrf -> csrf.disable()) // CSRF uitschakelen (optioneel voor API's)
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest()
                         .authenticated())
