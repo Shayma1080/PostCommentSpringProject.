@@ -7,7 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "comments")
-public class Comment extends AuditModel{
+public class Comment extends AuditModel{ // eigenaar
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

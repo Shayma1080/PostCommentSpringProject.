@@ -50,7 +50,6 @@ public class PostService {
     public List<Comment> findAllByPostId(Long id){
         Post post = postRepository.findById(id).orElseThrow(()-> new RuntimeException("post not found"));
         return List.copyOf(post.getComments()); // converteer SET naar LIST
-
     }
 
 }
