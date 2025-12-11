@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post & Comment API</title>
+    <!-- LET OP: pad naar CSS -->
+    <link rel="stylesheet" href="/css/api-ui.css">
+</head>
+<body>
+<div class="overlay"></div>
+<div class="container">
+    <h1>Post & Comment API</h1>
+    <div class="btn-group">
+        <button onclick="getPosts()">GET All Posts</button>
+        <button onclick="createPost()">POST Create Post</button>
+        <button onclick="updatePost()">UPDATE Post</button>
+        <button onclick="deletePost()">DELETE Post</button>
+    </div>
+    <h3>Response:</h3>
+    <pre id="responseBox"></pre>
+</div>
+
+<script src="/js/api-ui.js"></script>
+</body>
+</html>

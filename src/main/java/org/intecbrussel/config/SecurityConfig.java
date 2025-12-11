@@ -2,8 +2,11 @@ package org.intecbrussel.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -16,9 +19,10 @@ public class SecurityConfig {
                 // CSRF = Cross-Site Request Forgery
                 .csrf(csrf -> csrf.disable()) // CSRF uitschakelen (optioneel voor API's)
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest()
-                        .authenticated())
-                .httpBasic(httpBasic -> {});  // Hier een lege lambda
+                        .anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults());
+
         return http.build();
     }
+
 }
